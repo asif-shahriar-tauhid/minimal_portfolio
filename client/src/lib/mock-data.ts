@@ -1,0 +1,266 @@
+import { Portfolio } from "./types";
+
+export const initialPortfolioData: Portfolio = {
+  profile: {
+    id: 1,
+    name: "Asif Shahriar Tauhid",
+    alias: "aka [AT]",
+    designation: "Full Stack Developer",
+    location: "Dhaka, Bangladesh",
+    isAvailable: true,
+    availabilityText: "Available for work",
+    heroIntro:
+      "Full Stack Developer with a strong passion for building scalable, user-focused applications. Working with React, Next.js, Node.js, Express, MongoDB, and PostgreSQL.",
+    photoUrl: "https://i.ibb.co.com/N6hpS06K/Gemini-Generated-Image-og2dtnog2dtnog2d.webp",
+    resumeUrl:
+      "https://drive.google.com/file/d/1cftQuhy0wNb3ROWkDteVxtgMo3EfxYoT/view?usp=sharing",
+    aboutParagraphs: [
+      "I am a Computer Science student and aspiring Full-Stack Developer with a strong passion for building scalable, user-focused applications. My primary focus is modern web development, where I work with JavaScript, React, Node.js, Express.js, MongoDB, and PostgreSQL while continuously expanding my knowledge of backend systems and software architecture.",
+      "Beyond learning new technologies, I enjoy understanding how systems work under the hood, solving complex problems, and developing projects from the ground up. I regularly strengthen my programming fundamentals through data structures and algorithms, version control with Git, and hands-on development.",
+      "My long-term goal is to become a skilled software engineer who builds reliable, efficient, and impactful software, contributes to open-source projects, and continuously learns emerging technologies.",
+    ],
+    highlights: [
+      "Coding",
+      "Reading Tech Blogs",
+      "Gaming",
+      "Photography",
+    ],
+    email: "asifshahriartauhid@gmail.com",
+    phone: "+8801937165042",
+    whatsapp: "01937165042",
+    contactBlurb:
+      "Always open to interesting engineering challenges, software engineering internships, open-source collaborations, or discussing scalable system ideas.",
+    footerText: "Built with precision.",
+    updatedAt: new Date().toISOString(),
+  },
+  socialLinks: [
+    { id: "1", label: "GitHub", url: "https://github.com/asif-shahriar-tauhid", showInHero: true, order: 0 },
+    { id: "2", label: "LinkedIn", url: "https://www.linkedin.com/in/asif-tauhid/", showInHero: true, order: 1 },
+    { id: "3", label: "X", url: "https://x.com/monkeyluffy003b", showInHero: true, order: 2 },
+    { id: "4", label: "Facebook", url: "https://www.facebook.com/asifshahriar.tauhid", showInHero: false, order: 3 },
+  ],
+  skillCategories: [
+    {
+      id: "cat-1",
+      name: "Frontend",
+      order: 0,
+      skills: [
+        { id: "s1", name: "HTML", icon: "🌐", level: 95, order: 0, categoryId: "cat-1" },
+        { id: "s2", name: "React", icon: "⚛️", level: 90, order: 1, categoryId: "cat-1" },
+        { id: "s3", name: "TypeScript", icon: "TS", level: 90, order: 2, categoryId: "cat-1" },
+        { id: "s4", name: "TailwindCSS", icon: "🌀", level: 90, order: 3, categoryId: "cat-1" },
+        { id: "s5", name: "Framer-Motion", icon: "✨", level: 90, order: 4, categoryId: "cat-1" },
+        { id: "s6", name: "JavaScript", icon: "JS", level: 85, order: 5, categoryId: "cat-1" },
+        { id: "s7", name: "NextJS", icon: "▲", level: 70, order: 6, categoryId: "cat-1" },
+      ],
+    },
+    {
+      id: "cat-2",
+      name: "Backend",
+      order: 1,
+      skills: [
+        { id: "s8", name: "PostgreSQL", icon: "🐘", level: 90, order: 0, categoryId: "cat-2" },
+        { id: "s9", name: "MySQL", icon: "🐬", level: 90, order: 1, categoryId: "cat-2" },
+        { id: "s10", name: "NodeJS", icon: "🟢", level: 80, order: 2, categoryId: "cat-2" },
+        { id: "s11", name: "Express", icon: "🚂", level: 80, order: 3, categoryId: "cat-2" },
+        { id: "s12", name: "PrismaORM", icon: "💎", level: 80, order: 4, categoryId: "cat-2" },
+        { id: "s13", name: "MongoDB", icon: "🍃", level: 80, order: 5, categoryId: "cat-2" },
+      ],
+    },
+    {
+      id: "cat-3",
+      name: "Tools",
+      order: 2,
+      skills: [
+        { id: "s14", name: "Git", icon: "📦", level: 95, order: 0, categoryId: "cat-3" },
+        { id: "s15", name: "Github", icon: "🐙", level: 95, order: 1, categoryId: "cat-3" },
+        { id: "s16", name: "Browser Devtools", icon: "🛠️", level: 87, order: 2, categoryId: "cat-3" },
+        { id: "s17", name: "Prettier", icon: "✨", level: 80, order: 3, categoryId: "cat-3" },
+        { id: "s18", name: "npm", icon: "📦", level: 80, order: 4, categoryId: "cat-3" },
+        { id: "s19", name: "Eslint", icon: "🔍", level: 80, order: 5, categoryId: "cat-3" },
+      ],
+    },
+  ],
+  experiences: [
+    {
+      id: "exp-1",
+      role: "Moderator-Web Group.",
+      company: "NSU ACM Student Chapter.",
+      companyUrl: "https://nsusc.acm.org/",
+      location: "Dhaka, Bangladesh",
+      employment: "Student Community / Leadership",
+      startDate: "March 2026",
+      endDate: "Present",
+      description:
+        "Collaborated with a team of students to design and develop the official club flagship event landing page.",
+      highlights: [
+        "Collaborated with a student engineering team to design and ship the flagship event landing page.",
+        "Coordinated web group activities, code reviews, and frontend development initiatives.",
+      ],
+      technologies: ["React", "Tailwind CSS", "JavaScript", "Git"],
+      order: 0,
+    },
+    {
+      id: "exp-2",
+      role: "Open Source Contributor & Self-Taught Developer",
+      company: "Frontend Journey",
+      companyUrl: "https://github.com/asif-shahriar-tauhid",
+      location: "Remote",
+      employment: "Independent",
+      startDate: "August 2025",
+      endDate: "Present",
+      description:
+        "Built multiple full-stack and frontend applications utilizing modern tools like React, Tailwind CSS, and Firebase. Consistently solved algorithmic problems and pushed code to GitHub to maintain an active learning streak. Mastered modern developer workflows including version control, responsive design, and local storage state management.",
+      highlights: [
+        "Built multiple full-stack and frontend applications utilizing modern tools like React, Tailwind CSS, and Firebase.",
+        "Consistently solved algorithmic problems and pushed code to GitHub to maintain an active learning streak.",
+        "Mastered modern developer workflows including version control, responsive design, and state management.",
+      ],
+      technologies: ["React", "TypeScript", "Node.js", "Express", "Firebase", "PostgreSQL", "Tailwind CSS"],
+      order: 1,
+    },
+  ],
+  education: [
+    {
+      id: "edu-1",
+      degree: "BSc in CSE",
+      institution: "North South University",
+      location: "Dhaka, Bangladesh",
+      startDate: "2024",
+      endDate: "Present",
+      result: "Undergraduate",
+      description: "Pursuing Bachelor of Science in Computer Science & Engineering.",
+      coursework:
+        "Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Discrete Mathematics",
+      order: 0,
+    },
+    {
+      id: "edu-2",
+      degree: "Higher Secondary Certificate - HSC",
+      institution: "Govt. Science College",
+      location: "Dhaka, Bangladesh",
+      startDate: "2019",
+      endDate: "2021",
+      result: "GPA - 5.00",
+      description:
+        "Science Group. Focused on Higher Mathematics, Physics, Chemistry, and Information & Communication Technology (ICT).",
+      coursework: "Higher Mathematics, Physics, Chemistry, ICT",
+      order: 1,
+    },
+    {
+      id: "edu-3",
+      degree: "Secondary School Certificate - SSC",
+      institution: "Safiuddin Sarker Academy and College",
+      location: "Gazipur, Bangladesh",
+      startDate: "2017",
+      endDate: "2019",
+      result: "GPA - 5.00",
+      description: "Science Group. Completed secondary school education with perfect GPA 5.00.",
+      coursework: "General Science, Mathematics, English, Information Technology",
+      order: 2,
+    },
+  ],
+  projects: [
+    {
+      id: "p-rentnest",
+      slug: "rentnest",
+      title: "RentNest",
+      category: "Property Rental Platform",
+      summary:
+        "Comprehensive property rental platform with Next.js App Router, React 19, and Tailwind CSS v4 featuring role-tailored dashboards for Admin, Landlord, and Tenant.",
+      imageUrl:
+        "https://res.cloudinary.com/j39tyctx/image/upload/f_auto,q_auto/Annotation_2026-08-03_180157_pzqk85",
+      description:
+        "RentNest is a comprehensive, state-of-the-art frontend application designed to power a modern property rental platform. Built with the Next.js App Router, React 19, TypeScript, and Tailwind CSS v4, it offers tailored experiences for different user roles (Admin, Landlord, Tenant) through highly interactive and responsive dashboards. Features include rental listing management, dynamic booking workflows, integrated payment gateway with Stripe, and real-time dashboard analytics.",
+      techStack: [
+        "Next.js",
+        "React 19",
+        "TypeScript",
+        "Tailwind CSS v4",
+        "Node.js",
+        "Express",
+        "PostgreSQL",
+        "Prisma",
+        "Stripe",
+        "Framer Motion",
+        "Shadcn UI",
+        "Zod",
+      ],
+      liveUrl: "https://rentnest-teal.vercel.app/",
+      repoUrl: "https://github.com/asif-shahriar-tauhid/RentNest-Frontend",
+      challenges:
+        "Designing multi-role dynamic dashboards with responsive navigation while ensuring real-time synchronized rental booking state and secure payment flows via Stripe.",
+      improvements:
+        "Integrating 360-degree virtual property tours with Three.js, automated digital lease agreements with e-signatures, and instant landlord-tenant messaging webhooks.",
+      featured: true,
+      order: 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: "p-pulsecity",
+      slug: "pulsecity",
+      title: "PulseCity",
+      category: "Event Discovery & Booking",
+      summary:
+        "Interactive event discovery web app featuring Firebase authentication, protected booking routes, dynamic event listings, and a sleek dark-mode interface.",
+      imageUrl: "https://i.ibb.co.com/76gCHtQ/pulse.png",
+      description:
+        "PulseCity Event Explorer is a React + Vite web app for discovering events, viewing details, and creating local booking records after login.\n\nKey Highlights:\n- Firebase authentication (email/password + Google OAuth)\n- Protected routes for event details, user profiles, and dashboard\n- Event listing from dynamic feeds with upcoming and trending sections\n- Interactive event details page with local reservation forms\n- User profile management for display name and avatar updates\n- Sleek dark-themed UI engineered with Tailwind CSS v4, DaisyUI, AOS, Swiper, and Gooey Toast.",
+      techStack: [
+        "React",
+        "Vite",
+        "React Router",
+        "Firebase",
+        "Tailwind CSS",
+        "AOS",
+        "Swiper",
+        "Lucide React",
+        "DaisyUI",
+      ],
+      liveUrl: "https://pulsecity-event-explorer.web.app/",
+      repoUrl:
+        "https://github.com/Erenshoyo/PulseCity-Event-Explorer/commit/ae736799530c6ae5f16ed568a52bd6c27b796653",
+      challenges:
+        "Managing asynchronous authentication state transitions smoothly across protected reservation routes and integrating Swiper touch gestures with AOS scroll animations.",
+      improvements:
+        "Live seat reservation layout mapping, QR-code ticket scanning for event organizers, and native Google Calendar / iCal integration.",
+      featured: true,
+      order: 1,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: "p-lifeos",
+      slug: "lifeos",
+      title: "LifeOS",
+      category: "Productivity Platform",
+      summary:
+        "Premium, offline-first productivity platform replacing fragmented tools with an intentional, editorial-grade dashboard for tasks, habits, and focus.",
+      imageUrl: "https://i.ibb.co.com/TMX68h1b/lifeos.png",
+      description:
+        "Life OS is a premium, offline-first productivity platform that replaces the chaos of juggling multiple apps with one calm, editorial-grade dashboard. It integrates tasks, habits, journaling, goals, and deep-focus tools into a single intentional system with smooth micro-interactions, responsive charts, and Three.js ambient visual components.",
+      techStack: [
+        "Next.js",
+        "TypeScript",
+        "Three.js",
+        "Recharts",
+        "Shadcn UI",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Lucide Icons",
+        "Clsx",
+      ],
+      liveUrl: "https://lifeos-es.netlify.app",
+      repoUrl: "https://github.com/Erenshoyo/LifeOS",
+      challenges:
+        "Balancing offline-first persistent client state with high-performance animations and Three.js canvas rendering while maintaining 60 FPS interactions.",
+      improvements:
+        "End-to-end encrypted multi-device cloud synchronization, AI-powered habit analysis and daily journaling summaries, and offline PWA desktop installation.",
+      featured: true,
+      order: 2,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+  ],
+};
