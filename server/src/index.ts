@@ -38,7 +38,11 @@ app.use(express.json({ limit: "1mb" }));
 app.get("/", (_req, res) =>
   res.json({ ok: true, message: "Portfolio API is active", docs: "/api/portfolio" }),
 );
+app.get("/api", (_req, res) =>
+  res.json({ ok: true, message: "Portfolio API is active", docs: "/api/portfolio" }),
+);
 app.get("/health", (_req, res) => res.json({ ok: true }));
+app.get("/api/health", (_req, res) => res.json({ ok: true }));
 app.use("/api", api);
 
 app.use((_req, res) => res.status(404).json({ error: "Route not found" }));
