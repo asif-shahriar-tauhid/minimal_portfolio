@@ -1,7 +1,7 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import type { NextFunction, Request, Response } from "express";
 import jwt, { type SignOptions } from "jsonwebtoken";
-import { env } from "./env.ts";
+import { env } from "./env";
 
 export interface AdminClaims {
   sub: string;

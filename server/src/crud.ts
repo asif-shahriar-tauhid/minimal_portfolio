@@ -1,6 +1,6 @@
 import { Router, type NextFunction, type Request, type Response } from "express";
 import type { ZodType } from "zod";
-import { requireAdmin } from "./auth.ts";
+import { requireAdmin } from "./auth";
 
 /** Minimal shape shared by every Prisma model delegate we expose. */
 interface Delegate {

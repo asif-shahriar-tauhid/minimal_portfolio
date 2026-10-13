@@ -2,10 +2,9 @@
 // client is generated into src/generated/prisma (no more node_modules magic).
 
 generator client {
-  provider            = "prisma-client"
-  output              = "../src/generated/prisma"
-  moduleFormat        = "esm"
-  importFileExtension = "ts"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
 }
 
 datasource db {

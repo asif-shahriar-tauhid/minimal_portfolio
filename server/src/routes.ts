@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { requireAdmin, signToken, verifyCredentials } from "./auth.ts";
-import { crudRouter, wrap } from "./crud.ts";
-import { prisma } from "./db.ts";
+import { requireAdmin, signToken, verifyCredentials } from "./auth";
+import { crudRouter, wrap } from "./crud";
+import { prisma } from "./db";
 import {
   educationSchema,
   experienceSchema,
@@ -13,7 +13,7 @@ import {
   skillCategorySchema,
   skillSchema,
   socialLinkSchema,
-} from "./schemas.ts";
+} from "./schemas";
 
 export const api = Router();
 

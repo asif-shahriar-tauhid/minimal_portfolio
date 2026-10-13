@@ -2,10 +2,10 @@ import cors from "cors";
 import express, { type NextFunction, type Request, type Response } from "express";
 import helmet from "helmet";
 import { ZodError } from "zod";
-import { prisma } from "./db.ts";
-import { env } from "./env.ts";
-import { Prisma } from "./generated/prisma/client.ts";
-import { api } from "./routes.ts";
+import { prisma } from "./db";
+import { env } from "./env";
+import { Prisma } from "./generated/prisma/client";
+import { api } from "./routes";
 
 const app = express();
 
@@ -35,6 +35,9 @@ app.use(
 );
 app.use(express.json({ limit: "1mb" }));
 
+app.get("/", (_req, res) =>
+  res.json({ ok: true, message: "Portfolio API is active", docs: "/api/portfolio" }),
+);
 app.get("/health", (_req, res) => res.json({ ok: true }));
 app.use("/api", api);
 
