@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Portfolio } from "@/lib/types";
 
@@ -17,6 +18,7 @@ interface CommandOutput {
 }
 
 export function TerminalModal({ portfolio, isOpen, onClose }: TerminalModalProps) {
+  const router = useRouter();
   const [history, setHistory] = React.useState<CommandOutput[]>([]);
   const [inputVal, setInputVal] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -118,7 +120,7 @@ export function TerminalModal({ portfolio, isOpen, onClose }: TerminalModalProps
         break;
 
       case "admin":
-        window.location.href = "/dashboard";
+        router.push("/dashboard");
         outputHtml = `Redirecting to /dashboard...`;
         break;
 
@@ -180,7 +182,7 @@ export function TerminalModal({ portfolio, isOpen, onClose }: TerminalModalProps
             <div className="flex-1 p-4 overflow-y-auto no-scrollbar space-y-3 select-text text-neutral-300 leading-relaxed">
               <div>
                 Welcome to developer shell v2.5. Type{" "}
-                <span className="text-amber-400 font-semibold">'help'</span> for
+                <span className="text-amber-400 font-semibold">&apos;help&apos;</span> for
                 available commands.
               </div>
 

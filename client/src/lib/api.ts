@@ -1,5 +1,5 @@
 import { initialPortfolioData } from "./mock-data";
-import { Education, Experience, Message, Portfolio, Profile, Project, Skill, SkillCategory, SocialLink, Stats } from "./types";
+import { Portfolio, Profile, Project, Stats } from "./types";
 
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||

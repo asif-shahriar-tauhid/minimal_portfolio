@@ -16,7 +16,7 @@ import {
   Layers,
   Sparkles,
 } from "lucide-react";
-import { CodeBracketIcon, GithubIcon } from "@/components/icons";
+import { CodeBracketIcon } from "@/components/icons";
 import { Project } from "@/lib/types";
 import { ProjectModal } from "./project-modal";
 
@@ -26,14 +26,14 @@ interface ProjectsArchiveProps {
 
 export function ProjectsArchive({ initialProjects }: ProjectsArchiveProps) {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
   const [selectedProject, setSelectedProject] = React.useState<Project | null>(null);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Compute all unique categories across projects
   const categories = React.useMemo(() => {

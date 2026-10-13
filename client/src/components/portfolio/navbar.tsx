@@ -12,12 +12,12 @@ interface NavbarProps {
 
 export function Navbar({ onOpenTerminal }: NavbarProps) {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const navLinks = [
     { label: "About", href: "#about" },

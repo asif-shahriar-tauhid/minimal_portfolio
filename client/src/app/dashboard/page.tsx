@@ -61,7 +61,7 @@ import { toast } from "sonner";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [token, setToken] = React.useState<string | null>(null);
+  const [token, setToken] = React.useState<string | null>(() => getAdminToken());
   const [loading, setLoading] = React.useState(true);
   const [portfolio, setPortfolio] = React.useState<Portfolio | null>(null);
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -92,7 +92,6 @@ export default function DashboardPage() {
   // 1. Authenticate & Load Data
   const loadData = React.useCallback(async (authToken: string) => {
     try {
-      setLoading(true);
       const data = await getPortfolioData();
       setPortfolio(data);
       if (data.profile) {
@@ -120,7 +119,7 @@ export default function DashboardPage() {
       router.push("/dashboard/login");
       return;
     }
-    setToken(t);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData(t);
   }, [router, loadData]);
 
