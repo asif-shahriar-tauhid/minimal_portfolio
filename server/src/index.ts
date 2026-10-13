@@ -57,14 +57,18 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: "Internal server error" });
 });
 
-const server = app.listen(env.PORT, () => {
-  console.log(`🚀 API ready on http://localhost:${env.PORT}`);
-});
+export default app;
 
-async function shutdown() {
-  server.close();
-  await prisma.$disconnect();
-  process.exit(0);
+if (!process.env.VERCEL) {
+  const server = app.listen(env.PORT, () => {
+    console.log(`🚀 API ready on http://localhost:${env.PORT}`);
+  });
+
+  async function shutdown() {
+    server.close();
+    await prisma.$disconnect();
+    process.exit(0);
+  }
+  process.on("SIGINT", shutdown);
+  process.on("SIGTERM", shutdown);
 }
-process.on("SIGINT", shutdown);
-process.on("SIGTERM", shutdown);
