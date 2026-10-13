@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack personal portfolio with Next.js, shadcn/ui, Express 5, and Prisma 7 PostgreSQL backend.",
+  "scripts": {
+    "dev:client": "cd client && bun run dev",
+    "dev:server": "cd server && npm run dev",
+    "build:client": "cd client && bun run build",
+    "build:server": "cd server && npm run build"
+  }
+}

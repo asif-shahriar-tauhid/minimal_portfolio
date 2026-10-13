@@ -1,0 +1,560 @@
+{
+  "portfolio-data": {
+    "profile": {
+      "id": 1,
+      "name": "Asif Shahriar Tauhid",
+      "designation": "Full Stack Developer",
+      "photo_url": "https://i.ibb.co.com/N6hpS06K/Gemini-Generated-Image-og2dtnog2dtnog2d.webp",
+      "resume_url": "https://drive.google.com/file/d/1cftQuhy0wNb3ROWkDteVxtgMo3EfxYoT/view?usp=sharing",
+      "email": "asifshahriartauhid@gmail.com",
+      "phone": "+8801937165042",
+      "whatsapp": "+8801570234257",
+      "about_me": "I am a Computer Science student and aspiring Full-Stack Developer with a strong passion for building scalable, user-focused applications. My primary focus is modern web development, where I work with JavaScript, React, Node.js, Express.js, MongoDB, and PostgreSQL while continuously expanding my knowledge of backend systems and software architecture.\n\nBeyond learning new technologies, I enjoy understanding how systems work under the hood, solving complex problems, and developing projects from the ground up. I regularly strengthen my programming fundamentals through data structures and algorithms, version control with Git, and hands-on development.\n\nMy long-term goal is to become a skilled software engineer who builds reliable, efficient, and impactful software, contributes to open-source projects, and continuously learns emerging technologies.\n",
+      "social_links": {
+        "github": "https://github.com/Erenshoyo",
+        "twitter": "https://x.com/monkeyluffy003b",
+        "facebook": "https://www.facebook.com/asifshahriar.tauhid",
+        "linkedin": "https://www.linkedin.com/in/asif-tauhid/"
+      },
+      "hobbies": [
+        "Coding",
+        "Reading Tech Blogs",
+        "Gaming",
+        "Photography"
+      ]
+    },
+    "projects": [
+      {
+        "id": 4,
+        "title": "RentNest",
+        "image_url": "https://res.cloudinary.com/j39tyctx/image/upload/f_auto,q_auto/Annotation_2026-08-03_180157_pzqk85",
+        "description": "🏡 RentNest — Modern Property Rental Platform.\n\nRentNest is a comprehensive, state-of-the-art frontend application designed to power a modern property rental platform. Built with the Next.js App Router, React 19, TypeScript, and Tailwind CSS v4, it offers tailored experiences for different user roles (Admin, Landlord, Tenant) through highly interactive and responsive dashboards.\n\n",
+        "tech_stack": [
+          "nextjs",
+          "framer-motion",
+          "radix-ui",
+          "react-hook-form",
+          "react19",
+          "shadcn-ui",
+          "typescript",
+          "zod",
+          "tailwindcss",
+          "nodeJS",
+          "express",
+          "postgresql",
+          "prisma",
+          "stripe"
+        ],
+        "live_link": "https://rentnest-teal.vercel.app/",
+        "github_link": "https://github.com/asif-shahriar-tauhid/RentNest-Frontend",
+        "challenges": "",
+        "future_plans": ""
+      },
+      {
+        "id": 2,
+        "title": "PulseCity",
+        "image_url": "https://i.ibb.co.com/76gCHtQ/pulse.png",
+        "description": "PulseCity Event Explorer is a React + Vite web app for discovering events, viewing details, and creating local booking records after login.\n\nFeatures\n-Firebase authentication (email/password + Google OAuth)\n-Protected routes for event details, profile, and dashboard\n-Event listing from public/events.json (upcoming + trending sections)\n-Event details page with local reservation form\n-User profile update for display name and photo URL\n-Dark-themed UI with Tailwind CSS v4, DaisyUI, AOS, Swiper, and Gooey --Toast\n",
+        "tech_stack": [
+          "React",
+          "Vite",
+          "React Router",
+          "Firebase",
+          "Tailwind",
+          "AOS",
+          "Swiper",
+          "Lucide React",
+          "Goey"
+        ],
+        "live_link": "https://pulsecity-event-explorer.web.app/",
+        "github_link": "https://github.com/Erenshoyo/PulseCity-Event-Explorer/commit/ae736799530c6ae5f16ed568a52bd6c27b796653",
+        "challenges": "",
+        "future_plans": ""
+      },
+      {
+        "id": 1,
+        "title": "LifeOS",
+        "image_url": "https://i.ibb.co.com/TMX68h1b/lifeos.png",
+        "description": "Life OS is a premium, offline-first productivity platform that replaces the chaos of juggling multiple apps with one calm, editorial-grade dashboard. It integrates tasks, habits, journaling, goals, and deep-focus tools into a single intentional system.",
+        "tech_stack": [
+          "NextJS",
+          "Typescript",
+          "ThreeJS",
+          "Recharts",
+          "Shadcn",
+          "TailwindCSS",
+          "Lucide Icons",
+          "Framer-Motion",
+          "Clsx",
+          "tw-animate-css"
+        ],
+        "live_link": "https://lifeos-es.netlify.app",
+        "github_link": "https://github.com/Erenshoyo/LifeOS",
+        "challenges": "",
+        "future_plans": ""
+      }
+    ],
+    "skills": [
+      {
+        "id": 1,
+        "name": "HTML",
+        "percentage": 95,
+        "category": "Frontend"
+      },
+      {
+        "id": 18,
+        "name": "Github",
+        "percentage": 95,
+        "category": "Tools"
+      },
+      {
+        "id": 17,
+        "name": "Git",
+        "percentage": 95,
+        "category": "Tools"
+      },
+      {
+        "id": 16,
+        "name": "TypeScript",
+        "percentage": 90,
+        "category": "Frontend"
+      },
+      {
+        "id": 11,
+        "name": "MySQL",
+        "percentage": 90,
+        "category": "Backend"
+      },
+      {
+        "id": 12,
+        "name": "PostgreSQL",
+        "percentage": 90,
+        "category": "Backend"
+      },
+      {
+        "id": 22,
+        "name": "Framer-Motion",
+        "percentage": 90,
+        "category": "Frontend"
+      },
+      {
+        "id": 2,
+        "name": "TailwindCSS",
+        "percentage": 90,
+        "category": "Frontend"
+      },
+      {
+        "id": 5,
+        "name": "React",
+        "percentage": 90,
+        "category": "Frontend"
+      },
+      {
+        "id": 23,
+        "name": "Browser Devtools",
+        "percentage": 87,
+        "category": "Tools"
+      },
+      {
+        "id": 4,
+        "name": "JavaScript",
+        "percentage": 85,
+        "category": "Frontend"
+      },
+      {
+        "id": 15,
+        "name": "MongoDB",
+        "percentage": 80,
+        "category": "Backend"
+      },
+      {
+        "id": 8,
+        "name": "Express",
+        "percentage": 80,
+        "category": "Backend"
+      },
+      {
+        "id": 13,
+        "name": "PrismaORM",
+        "percentage": 80,
+        "category": "Backend"
+      },
+      {
+        "id": 10,
+        "name": "NodeJS",
+        "percentage": 80,
+        "category": "Backend"
+      },
+      {
+        "id": 14,
+        "name": "MongoDB",
+        "percentage": 80,
+        "category": "Backend"
+      },
+      {
+        "id": 20,
+        "name": "Prettier",
+        "percentage": 80,
+        "category": "Tools"
+      },
+      {
+        "id": 21,
+        "name": "npm",
+        "percentage": 80,
+        "category": "Tools"
+      },
+      {
+        "id": 19,
+        "name": "Eslint",
+        "percentage": 80,
+        "category": "Tools"
+      },
+      {
+        "id": 6,
+        "name": "NextJS",
+        "percentage": 70,
+        "category": "Frontend"
+      }
+    ],
+    "experience": [
+      {
+        "id": 2,
+        "role": "Moderator-Web Group.",
+        "company": "NSU ACM Student Chapter.",
+        "duration": "March 2026 - Present",
+        "description": "Collaborated with a team of students to design and develop the official club flagship event landing page."
+      },
+      {
+        "id": 1,
+        "role": "Open Source Contributor & Self-Taught Developer",
+        "company": "Frontend Journey",
+        "duration": "August 2025 - Present",
+        "description": "Built multiple full-stack and frontend applications utilizing modern tools like React, Tailwind CSS, and Firebase.\nConsistently solved algorithmic problems and pushed code to GitHub to maintain an active learning streak.\nMastered modern developer workflows including version control, responsive design, and local storage state management."
+      }
+    ],
+    "education": [
+      {
+        "id": 3,
+        "degree": "BSc in CSE",
+        "institution": "North South University",
+        "duration": "2024 - Present",
+        "description": ""
+      },
+      {
+        "id": 2,
+        "degree": "Higher Secondary Certificate - HSC",
+        "institution": "Govt. Science College",
+        "duration": "2021",
+        "description": "GPA - 5.00"
+      },
+      {
+        "id": 1,
+        "degree": "Secondary School Certificate - SSC",
+        "institution": "Safiuddin Sarker Academy and College",
+        "duration": "2019",
+        "description": "GPA - 5.00"
+      }
+    ],
+    "blogs": [
+      {
+        "id": 3,
+        "title": "A Little About Me",
+        "content": "\nHey! I'm Asif.\n\nI'm a Computer Science student with a simple goal: to become someone who can build software that genuinely helps people.\n\nMy journey into programming started with learning the basics of C. Since then, I've explored Java, JavaScript, and modern web development. Every new concept reminds me how much there is still to learn, and that's exactly what keeps me motivated.\n\nThese days, most of my time is spent studying, coding, and working on personal projects. I enjoy the process of taking an idea, breaking it into smaller problems, and slowly turning it into something that actually works. There's something incredibly satisfying about seeing a project come together after hours of debugging and learning.\n\nI'm particularly interested in full-stack development, but I'm also curious about software architecture, databases, open-source software, and the technologies that power modern applications behind the scenes. I believe understanding the fundamentals is just as important as learning the latest frameworks.\n\nOutside of programming, I'm someone who enjoys learning in general. Whether it's watching technical talks, reading documentation, or exploring a new tool, I like expanding my knowledge one step at a time. I don't expect to know everything overnight—I just aim to be a little better than I was yesterday.\n\nLooking ahead, I hope to grow into a software engineer who builds reliable, scalable, and meaningful applications. Along the way, I want to keep challenging myself, contribute to open-source projects, and never stop learning.\n\nIf you're also on a journey of learning, building, or simply figuring things out, welcome. I hope we can learn something from each other.\n\nThanks for being here.\n",
+        "image_url": "",
+        "created_at": "2026-07-02T12:52:32.292Z"
+      },
+      {
+        "id": 2,
+        "title": "Why unknown is Safer than any in TypeScript",
+        "content": "# Why `unknown` is Safer than `any` in TypeScript\n\nWhy is any labeled a \"type safety hole,\" and why is unknown the safer choice for handling unpredictable data? Explain the concept of type narrowing.\n\n## Introduction\n\nWhile handling data that are unpredictable, Typescript offers two options: `any` and `unknown`. By the sound of it, `any` might feel convenient, it silently disables type checking. Meanwhile, `unknown` accepts any value but forces to verify the type before using, making it a more _responsible_ choice.\n\n## Body Paragraph\n\n### Any\n\nThis type essentially tells the compiler to turn off type checking for the specific variable. When we use `any`, we are practically going back to use plain old Javascript.\n\nIt is considered a hole in our type safety net mainly due to the compiler trusting us blindly. Thus, it allows us to access properties, even calling those that might not even exist in the codebase. Which ultimately leads to applicaton being crushed in the process.\n\n```typescript\nlet unpredictableData: any = \"Hello, world!\";\n\n// TypeScript allows all of this, but it will crash at runtime!\nunpredictableData.someMethodThatDoesNotExist();\nunpredictableData[0].name;\nunpredictableData();\n```\n\n### Unknown\n\n`unknown` is the type-safe counterpart of `any`. It can also hold aboslutely any value just like `any`.\n\nThe main and most important difference it that \"Typescript will not let us interact with an `unknown` variable until we prove what type it is\" forcing us to write good quality and defensive course.\n\n```typescript\nlet safeData: unknown = \"Hello, world!\";\n\n// TypeScript ERROR: Object is of type 'unknown'.\nsafeData.toUpperCase();\n```\n\nTo solve that specific erroe, we use Type Narrowing.\n\n### Type Narrowing\n\nType narrowing is the process of taking a broad or uncertain type and using logic to narrow it down to a more specific, predictable type.\n\nWe achieve this by using _Type Guards_-standard JavaScript checks like `typeof`, `instanceof`, `in` etc. When Typescript sees these checks, it \"narrows\" the type inside that specific block of code.\n\n```typescript\nfunction processData(data: unknown) {\n  // At this point, 'data' is unknown. We can't do much with it.\n\n  if (typeof data === \"string\") {\n    // TypeScript has narrowed 'data' to a string in this block.\n    // It is now perfectly safe to use string methods.\n    console.log(data.toUpperCase());\n  } else if (Array.isArray(data)) {\n    // TypeScript has narrowed 'data' to an array here.\n    console.log(data.length);\n  } else {\n    // If it's neither, we can handle the fallback safely.\n    console.log(\"Data is of an unsupported type.\");\n  }\n}\n```\n\n## Conclusion\n\nBy using `unknown` combined with type narrowing, we maintian the flexibility needed for unpredictable data without sacrificing the strict safety guarantees that make Typescript so powerful.",
+        "image_url": "",
+        "created_at": "2026-07-02T11:36:20.792Z"
+      },
+      {
+        "id": 1,
+        "title": "Keeping the code DRY with Pick and Omit in TypeScript.",
+        "content": "# Keeping the code DRY with `Pick` and `Omit` in TypeScript.\n\nHow do Pick and Omit utility types prevent code duplication while creating specialized \"slices\" of a master interface? Discuss how this keeps your code DRY (Don't Repeat Yourself).\n\n## Introduction\n\nIn web development or software development as a whole, one of the most fundamental principles is **DRY**-\"Don't Repeat Yourself\". As our project grows, we often use various variations of already existing functions, methods and so on, which breaks the fundamental of **DRY** priciple. This is where these two utility types `Pick` and `Omit` helps us to avoid repeating the same structures again by creating a separate interface of the subjective structure\n\n## Body Paragraph\n\n### Pick\n\nImagine having a master interface named `User`:\n\n```typescript\ninterface User {\n  id: string;\n  userName: string;\n  email: string;\n  phoneNumber: string;\n}\n```\n\nNow, if we need a type for the user profile, we usually are tempted to create a new interface with those type but that means when we have to update those, we will need to update multiple interfaces.\n\nThis is where `Pick` utility type shines brightly, it creates a new type by selecting a specific set of properties from an existing interface.\n\n```typescript\ntype PublicUser = Pick<User, \"userName\" | \"role\">;\n\nconst displayUser: PublicProfile = {\n  userName: \"Tauhid\",\n  role: \"admin\",\n};\n```\n\nHere, `PublicProfile` always remains synchronized with the master `User` interface. This way we only need to change the master interface and it updates everywhere.\n\n### Omit\n\nOn the other hand, if we need to declare something we _don't_ want. We can use `Omit` utility type. It creates a new type by excluding the unneccessary properties.\n\n```typescript\ntype UserCreationRequest = Omit<User, \"id\" | \"createdAt\">;\n\nconst newUser: UserCreationRequest = {\n  username: \"janedoe\",\n  email: \"jane@example.com\",\n  passwordHash: \"hashed_string\",\n  role: \"user\",\n};\n```\n\n## Conclusion\n\nBy learning these utility types we can execute the **DRY** principle effectively while also being efficient.",
+        "image_url": "",
+        "created_at": "2026-07-02T11:35:44.524Z"
+      }
+    ]
+  },
+  "profile": {
+    "id": 1,
+    "name": "Asif Shahriar Tauhid",
+    "designation": "Full Stack Developer",
+    "photo_url": "https://i.ibb.co.com/N6hpS06K/Gemini-Generated-Image-og2dtnog2dtnog2d.webp",
+    "resume_url": "https://drive.google.com/file/d/1cftQuhy0wNb3ROWkDteVxtgMo3EfxYoT/view?usp=sharing",
+    "email": "asifshahriartauhid@gmail.com",
+    "phone": "+8801937165042",
+    "whatsapp": "+8801570234257",
+    "about_me": "I am a Computer Science student and aspiring Full-Stack Developer with a strong passion for building scalable, user-focused applications. My primary focus is modern web development, where I work with JavaScript, React, Node.js, Express.js, MongoDB, and PostgreSQL while continuously expanding my knowledge of backend systems and software architecture.\n\nBeyond learning new technologies, I enjoy understanding how systems work under the hood, solving complex problems, and developing projects from the ground up. I regularly strengthen my programming fundamentals through data structures and algorithms, version control with Git, and hands-on development.\n\nMy long-term goal is to become a skilled software engineer who builds reliable, efficient, and impactful software, contributes to open-source projects, and continuously learns emerging technologies.\n",
+    "social_links": {
+      "github": "https://github.com/Erenshoyo",
+      "twitter": "https://x.com/monkeyluffy003b",
+      "facebook": "https://www.facebook.com/asifshahriar.tauhid",
+      "linkedin": "https://www.linkedin.com/in/asif-tauhid/"
+    },
+    "hobbies": [
+      "Coding",
+      "Reading Tech Blogs",
+      "Gaming",
+      "Photography"
+    ]
+  },
+  "projects": [
+    {
+      "id": 4,
+      "title": "RentNest",
+      "image_url": "https://res.cloudinary.com/j39tyctx/image/upload/f_auto,q_auto/Annotation_2026-08-03_180157_pzqk85",
+      "description": "🏡 RentNest — Modern Property Rental Platform.\n\nRentNest is a comprehensive, state-of-the-art frontend application designed to power a modern property rental platform. Built with the Next.js App Router, React 19, TypeScript, and Tailwind CSS v4, it offers tailored experiences for different user roles (Admin, Landlord, Tenant) through highly interactive and responsive dashboards.\n\n",
+      "tech_stack": [
+        "nextjs",
+        "framer-motion",
+        "radix-ui",
+        "react-hook-form",
+        "react19",
+        "shadcn-ui",
+        "typescript",
+        "zod",
+        "tailwindcss",
+        "nodeJS",
+        "express",
+        "postgresql",
+        "prisma",
+        "stripe"
+      ],
+      "live_link": "https://rentnest-teal.vercel.app/",
+      "github_link": "https://github.com/asif-shahriar-tauhid/RentNest-Frontend",
+      "challenges": "",
+      "future_plans": ""
+    },
+    {
+      "id": 2,
+      "title": "PulseCity",
+      "image_url": "https://i.ibb.co.com/76gCHtQ/pulse.png",
+      "description": "PulseCity Event Explorer is a React + Vite web app for discovering events, viewing details, and creating local booking records after login.\n\nFeatures\n-Firebase authentication (email/password + Google OAuth)\n-Protected routes for event details, profile, and dashboard\n-Event listing from public/events.json (upcoming + trending sections)\n-Event details page with local reservation form\n-User profile update for display name and photo URL\n-Dark-themed UI with Tailwind CSS v4, DaisyUI, AOS, Swiper, and Gooey --Toast\n",
+      "tech_stack": [
+        "React",
+        "Vite",
+        "React Router",
+        "Firebase",
+        "Tailwind",
+        "AOS",
+        "Swiper",
+        "Lucide React",
+        "Goey"
+      ],
+      "live_link": "https://pulsecity-event-explorer.web.app/",
+      "github_link": "https://github.com/Erenshoyo/PulseCity-Event-Explorer/commit/ae736799530c6ae5f16ed568a52bd6c27b796653",
+      "challenges": "",
+      "future_plans": ""
+    },
+    {
+      "id": 1,
+      "title": "LifeOS",
+      "image_url": "https://i.ibb.co.com/TMX68h1b/lifeos.png",
+      "description": "Life OS is a premium, offline-first productivity platform that replaces the chaos of juggling multiple apps with one calm, editorial-grade dashboard. It integrates tasks, habits, journaling, goals, and deep-focus tools into a single intentional system.",
+      "tech_stack": [
+        "NextJS",
+        "Typescript",
+        "ThreeJS",
+        "Recharts",
+        "Shadcn",
+        "TailwindCSS",
+        "Lucide Icons",
+        "Framer-Motion",
+        "Clsx",
+        "tw-animate-css"
+      ],
+      "live_link": "https://lifeos-es.netlify.app",
+      "github_link": "https://github.com/Erenshoyo/LifeOS",
+      "challenges": "",
+      "future_plans": ""
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "name": "HTML",
+      "percentage": 95,
+      "category": "Frontend"
+    },
+    {
+      "id": 18,
+      "name": "Github",
+      "percentage": 95,
+      "category": "Tools"
+    },
+    {
+      "id": 17,
+      "name": "Git",
+      "percentage": 95,
+      "category": "Tools"
+    },
+    {
+      "id": 16,
+      "name": "TypeScript",
+      "percentage": 90,
+      "category": "Frontend"
+    },
+    {
+      "id": 11,
+      "name": "MySQL",
+      "percentage": 90,
+      "category": "Backend"
+    },
+    {
+      "id": 12,
+      "name": "PostgreSQL",
+      "percentage": 90,
+      "category": "Backend"
+    },
+    {
+      "id": 22,
+      "name": "Framer-Motion",
+      "percentage": 90,
+      "category": "Frontend"
+    },
+    {
+      "id": 2,
+      "name": "TailwindCSS",
+      "percentage": 90,
+      "category": "Frontend"
+    },
+    {
+      "id": 5,
+      "name": "React",
+      "percentage": 90,
+      "category": "Frontend"
+    },
+    {
+      "id": 23,
+      "name": "Browser Devtools",
+      "percentage": 87,
+      "category": "Tools"
+    },
+    {
+      "id": 4,
+      "name": "JavaScript",
+      "percentage": 85,
+      "category": "Frontend"
+    },
+    {
+      "id": 15,
+      "name": "MongoDB",
+      "percentage": 80,
+      "category": "Backend"
+    },
+    {
+      "id": 8,
+      "name": "Express",
+      "percentage": 80,
+      "category": "Backend"
+    },
+    {
+      "id": 13,
+      "name": "PrismaORM",
+      "percentage": 80,
+      "category": "Backend"
+    },
+    {
+      "id": 10,
+      "name": "NodeJS",
+      "percentage": 80,
+      "category": "Backend"
+    },
+    {
+      "id": 14,
+      "name": "MongoDB",
+      "percentage": 80,
+      "category": "Backend"
+    },
+    {
+      "id": 20,
+      "name": "Prettier",
+      "percentage": 80,
+      "category": "Tools"
+    },
+    {
+      "id": 21,
+      "name": "npm",
+      "percentage": 80,
+      "category": "Tools"
+    },
+    {
+      "id": 19,
+      "name": "Eslint",
+      "percentage": 80,
+      "category": "Tools"
+    },
+    {
+      "id": 6,
+      "name": "NextJS",
+      "percentage": 70,
+      "category": "Frontend"
+    }
+  ],
+  "experience": [
+    {
+      "id": 2,
+      "role": "Moderator-Web Group.",
+      "company": "NSU ACM Student Chapter.",
+      "duration": "March 2026 - Present",
+      "description": "Collaborated with a team of students to design and develop the official club flagship event landing page."
+    },
+    {
+      "id": 1,
+      "role": "Open Source Contributor & Self-Taught Developer",
+      "company": "Frontend Journey",
+      "duration": "August 2025 - Present",
+      "description": "Built multiple full-stack and frontend applications utilizing modern tools like React, Tailwind CSS, and Firebase.\nConsistently solved algorithmic problems and pushed code to GitHub to maintain an active learning streak.\nMastered modern developer workflows including version control, responsive design, and local storage state management."
+    }
+  ],
+  "education": [
+    {
+      "id": 3,
+      "degree": "BSc in CSE",
+      "institution": "North South University",
+      "duration": "2024 - Present",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "degree": "Higher Secondary Certificate - HSC",
+      "institution": "Govt. Science College",
+      "duration": "2021",
+      "description": "GPA - 5.00"
+    },
+    {
+      "id": 1,
+      "degree": "Secondary School Certificate - SSC",
+      "institution": "Safiuddin Sarker Academy and College",
+      "duration": "2019",
+      "description": "GPA - 5.00"
+    }
+  ],
+  "blogs": [
+    {
+      "id": 3,
+      "title": "A Little About Me",
+      "content": "\nHey! I'm Asif.\n\nI'm a Computer Science student with a simple goal: to become someone who can build software that genuinely helps people.\n\nMy journey into programming started with learning the basics of C. Since then, I've explored Java, JavaScript, and modern web development. Every new concept reminds me how much there is still to learn, and that's exactly what keeps me motivated.\n\nThese days, most of my time is spent studying, coding, and working on personal projects. I enjoy the process of taking an idea, breaking it into smaller problems, and slowly turning it into something that actually works. There's something incredibly satisfying about seeing a project come together after hours of debugging and learning.\n\nI'm particularly interested in full-stack development, but I'm also curious about software architecture, databases, open-source software, and the technologies that power modern applications behind the scenes. I believe understanding the fundamentals is just as important as learning the latest frameworks.\n\nOutside of programming, I'm someone who enjoys learning in general. Whether it's watching technical talks, reading documentation, or exploring a new tool, I like expanding my knowledge one step at a time. I don't expect to know everything overnight—I just aim to be a little better than I was yesterday.\n\nLooking ahead, I hope to grow into a software engineer who builds reliable, scalable, and meaningful applications. Along the way, I want to keep challenging myself, contribute to open-source projects, and never stop learning.\n\nIf you're also on a journey of learning, building, or simply figuring things out, welcome. I hope we can learn something from each other.\n\nThanks for being here.\n",
+      "image_url": "",
+      "created_at": "2026-07-02T12:52:32.292Z"
+    },
+    {
+      "id": 2,
+      "title": "Why unknown is Safer than any in TypeScript",
+      "content": "# Why `unknown` is Safer than `any` in TypeScript\n\nWhy is any labeled a \"type safety hole,\" and why is unknown the safer choice for handling unpredictable data? Explain the concept of type narrowing.\n\n## Introduction\n\nWhile handling data that are unpredictable, Typescript offers two options: `any` and `unknown`. By the sound of it, `any` might feel convenient, it silently disables type checking. Meanwhile, `unknown` accepts any value but forces to verify the type before using, making it a more _responsible_ choice.\n\n## Body Paragraph\n\n### Any\n\nThis type essentially tells the compiler to turn off type checking for the specific variable. When we use `any`, we are practically going back to use plain old Javascript.\n\nIt is considered a hole in our type safety net mainly due to the compiler trusting us blindly. Thus, it allows us to access properties, even calling those that might not even exist in the codebase. Which ultimately leads to applicaton being crushed in the process.\n\n```typescript\nlet unpredictableData: any = \"Hello, world!\";\n\n// TypeScript allows all of this, but it will crash at runtime!\nunpredictableData.someMethodThatDoesNotExist();\nunpredictableData[0].name;\nunpredictableData();\n```\n\n### Unknown\n\n`unknown` is the type-safe counterpart of `any`. It can also hold aboslutely any value just like `any`.\n\nThe main and most important difference it that \"Typescript will not let us interact with an `unknown` variable until we prove what type it is\" forcing us to write good quality and defensive course.\n\n```typescript\nlet safeData: unknown = \"Hello, world!\";\n\n// TypeScript ERROR: Object is of type 'unknown'.\nsafeData.toUpperCase();\n```\n\nTo solve that specific erroe, we use Type Narrowing.\n\n### Type Narrowing\n\nType narrowing is the process of taking a broad or uncertain type and using logic to narrow it down to a more specific, predictable type.\n\nWe achieve this by using _Type Guards_-standard JavaScript checks like `typeof`, `instanceof`, `in` etc. When Typescript sees these checks, it \"narrows\" the type inside that specific block of code.\n\n```typescript\nfunction processData(data: unknown) {\n  // At this point, 'data' is unknown. We can't do much with it.\n\n  if (typeof data === \"string\") {\n    // TypeScript has narrowed 'data' to a string in this block.\n    // It is now perfectly safe to use string methods.\n    console.log(data.toUpperCase());\n  } else if (Array.isArray(data)) {\n    // TypeScript has narrowed 'data' to an array here.\n    console.log(data.length);\n  } else {\n    // If it's neither, we can handle the fallback safely.\n    console.log(\"Data is of an unsupported type.\");\n  }\n}\n```\n\n## Conclusion\n\nBy using `unknown` combined with type narrowing, we maintian the flexibility needed for unpredictable data without sacrificing the strict safety guarantees that make Typescript so powerful.",
+      "image_url": "",
+      "created_at": "2026-07-02T11:36:20.792Z"
+    },
+    {
+      "id": 1,
+      "title": "Keeping the code DRY with Pick and Omit in TypeScript.",
+      "content": "# Keeping the code DRY with `Pick` and `Omit` in TypeScript.\n\nHow do Pick and Omit utility types prevent code duplication while creating specialized \"slices\" of a master interface? Discuss how this keeps your code DRY (Don't Repeat Yourself).\n\n## Introduction\n\nIn web development or software development as a whole, one of the most fundamental principles is **DRY**-\"Don't Repeat Yourself\". As our project grows, we often use various variations of already existing functions, methods and so on, which breaks the fundamental of **DRY** priciple. This is where these two utility types `Pick` and `Omit` helps us to avoid repeating the same structures again by creating a separate interface of the subjective structure\n\n## Body Paragraph\n\n### Pick\n\nImagine having a master interface named `User`:\n\n```typescript\ninterface User {\n  id: string;\n  userName: string;\n  email: string;\n  phoneNumber: string;\n}\n```\n\nNow, if we need a type for the user profile, we usually are tempted to create a new interface with those type but that means when we have to update those, we will need to update multiple interfaces.\n\nThis is where `Pick` utility type shines brightly, it creates a new type by selecting a specific set of properties from an existing interface.\n\n```typescript\ntype PublicUser = Pick<User, \"userName\" | \"role\">;\n\nconst displayUser: PublicProfile = {\n  userName: \"Tauhid\",\n  role: \"admin\",\n};\n```\n\nHere, `PublicProfile` always remains synchronized with the master `User` interface. This way we only need to change the master interface and it updates everywhere.\n\n### Omit\n\nOn the other hand, if we need to declare something we _don't_ want. We can use `Omit` utility type. It creates a new type by excluding the unneccessary properties.\n\n```typescript\ntype UserCreationRequest = Omit<User, \"id\" | \"createdAt\">;\n\nconst newUser: UserCreationRequest = {\n  username: \"janedoe\",\n  email: \"jane@example.com\",\n  passwordHash: \"hashed_string\",\n  role: \"user\",\n};\n```\n\n## Conclusion\n\nBy learning these utility types we can execute the **DRY** principle effectively while also being efficient.",
+      "image_url": "",
+      "created_at": "2026-07-02T11:35:44.524Z"
+    }
+  ]
+}

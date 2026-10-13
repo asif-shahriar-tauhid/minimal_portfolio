@@ -1,0 +1,121 @@
+// Prisma 7 schema — the datasource URL lives in prisma.config.ts, and the
+// client is generated into src/generated/prisma (no more node_modules magic).
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "ts"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Singleton row (id = 1) holding hero, about and contact content.
+model Profile {
+  id               Int      @id @default(1)
+  name             String
+  alias            String?
+  designation      String
+  location         String?
+  isAvailable      Boolean  @default(true)
+  availabilityText String   @default("Available for work")
+  heroIntro        String
+  photoUrl         String?
+  resumeUrl        String?
+  aboutParagraphs  String[]
+  highlights       String[]
+  email            String
+  phone            String?
+  whatsapp         String?
+  contactBlurb     String?
+  footerText       String?
+  updatedAt        DateTime @updatedAt
+}
+
+model SocialLink {
+  id         String  @id @default(cuid())
+  label      String
+  url        String
+  showInHero Boolean @default(true)
+  order      Int     @default(0)
+}
+
+model SkillCategory {
+  id     String  @id @default(cuid())
+  name   String
+  order  Int     @default(0)
+  skills Skill[]
+}
+
+model Skill {
+  id         String        @id @default(cuid())
+  name       String
+  icon       String?
+  /// Self-assessed proficiency 0–100, rendered as a meter on the site.
+  level      Int           @default(70)
+  order      Int           @default(0)
+  categoryId String
+  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@index([categoryId])
+}
+
+model Experience {
+  id           String   @id @default(cuid())
+  role         String
+  company      String
+  companyUrl   String?
+  location     String?
+  employment   String?
+  startDate    String
+  endDate      String?
+  description  String?
+  highlights   String[]
+  technologies String[]
+  order        Int      @default(0)
+}
+
+model Education {
+  id          String  @id @default(cuid())
+  degree      String
+  institution String
+  location    String?
+  startDate   String?
+  endDate     String?
+  result      String?
+  description String?
+  coursework  String?
+  order       Int     @default(0)
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  title        String
+  category     String?
+  summary      String
+  imageUrl     String?
+  description  String
+  techStack    String[]
+  liveUrl      String?
+  repoUrl      String?
+  challenges   String
+  improvements String
+  featured     Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
