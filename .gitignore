@@ -6,7 +6,7 @@ node_modules/
 .next/
 client/.next/
 dist/
-server/dist/
+!server/dist/
 out/
 build/
 

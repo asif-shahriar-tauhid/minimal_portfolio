@@ -12,5 +12,5 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "api", "prisma", "prisma.config.ts", "tsup.config.ts"]
+  "include": ["src", "prisma", "prisma.config.ts", "tsup.config.ts"]
 }
