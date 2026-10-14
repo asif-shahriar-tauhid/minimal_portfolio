@@ -22,6 +22,10 @@ import {
   Sparkles,
   Sliders,
   Eye,
+  Star,
+  ArrowUp,
+  ArrowDown,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,6 +47,8 @@ import {
   API_URL,
   apiRequest,
   getPortfolioData,
+  toggleProjectFeaturedApi,
+  updateFeaturedProjectsApi,
   updateProfileApi,
 } from "@/lib/api";
 import { getAdminToken, removeAdminToken } from "@/lib/auth-client";
@@ -73,6 +79,9 @@ export default function DashboardPage() {
   // Dialog States
   const [projectDialogOpen, setProjectDialogOpen] = React.useState(false);
   const [editingProject, setEditingProject] = React.useState<Partial<Project> | null>(null);
+  const [featuredSlotDialogOpen, setFeaturedSlotDialogOpen] = React.useState(false);
+  const [activeSlotIndex, setActiveSlotIndex] = React.useState<number | null>(null);
+  const [savingFeatured, setSavingFeatured] = React.useState(false);
 
   const [skillDialogOpen, setSkillDialogOpen] = React.useState(false);
   const [editingSkill, setEditingSkill] = React.useState<Partial<Skill> | null>(null);
@@ -148,6 +157,20 @@ export default function DashboardPage() {
   // 3. Project Actions
   const handleSaveProject = async () => {
     if (!token || !editingProject) return;
+
+    // Validate 3-project featured limit
+    const currentFeatured = portfolio?.projects.filter((p) => p.featured) || [];
+    const isCurrentlyFeatured = Boolean(
+      editingProject.id && currentFeatured.some((p) => p.id === editingProject.id)
+    );
+    const willBeFeatured = editingProject.featured ?? true;
+    if (willBeFeatured && !isCurrentlyFeatured && currentFeatured.length >= 3) {
+      toast.error(
+        "You can feature a maximum of 3 projects. Please unfeature one before featuring this project."
+      );
+      return;
+    }
+
     try {
       const isNew = !editingProject.id;
       const endpoint = isNew ? "/projects" : `/projects/${editingProject.id}`;
@@ -172,7 +195,7 @@ export default function DashboardPage() {
         repoUrl: editingProject.repoUrl || null,
         challenges: editingProject.challenges || "",
         improvements: editingProject.improvements || "",
-        featured: editingProject.featured ?? true,
+        featured: willBeFeatured,
         order: editingProject.order ?? 0,
       };
 
@@ -194,6 +217,119 @@ export default function DashboardPage() {
       loadData(token);
     } catch (err: unknown) {
       toast.error((err as Error).message || "Failed to delete project");
+    }
+  };
+
+  // Featured Projects Sorting & Actions
+  const featuredProjects = React.useMemo(() => {
+    if (!portfolio?.projects) return [];
+    return [...portfolio.projects]
+      .filter((p) => p.featured)
+      .sort((a, b) => {
+        if (typeof a.order === "number" && typeof b.order === "number" && a.order !== b.order) {
+          return a.order - b.order;
+        }
+        const timeA = new Date(a.createdAt || a.updatedAt || 0).getTime();
+        const timeB = new Date(b.createdAt || b.updatedAt || 0).getTime();
+        return timeB - timeA;
+      });
+  }, [portfolio?.projects]);
+
+  const handleAssignFeaturedSlot = async (slotIdx: number, newProjectId: string) => {
+    if (!token) return;
+    setSavingFeatured(true);
+    try {
+      const currentIds = featuredProjects.map((p) => p.id);
+      const filtered = currentIds.filter((id) => id !== newProjectId);
+      filtered.splice(slotIdx, 0, newProjectId);
+      const nextIds = filtered.slice(0, 3);
+
+      await updateFeaturedProjectsApi(nextIds, token);
+      toast.success(
+        slotIdx === 0
+          ? "Assigned to Slot #1 as the latest featured project (top of homepage)!"
+          : `Assigned to Featured Slot #${slotIdx + 1}!`
+      );
+      setFeaturedSlotDialogOpen(false);
+      setActiveSlotIndex(null);
+      await loadData(token);
+    } catch (err: unknown) {
+      toast.error((err as Error).message || "Failed to update featured projects");
+    } finally {
+      setSavingFeatured(false);
+    }
+  };
+
+  const handleRemoveFromFeatured = async (projectId: string) => {
+    if (!token) return;
+    setSavingFeatured(true);
+    try {
+      const nextIds = featuredProjects.map((p) => p.id).filter((id) => id !== projectId);
+      await updateFeaturedProjectsApi(nextIds, token);
+      toast.info("Project removed from featured showcase");
+      await loadData(token);
+    } catch (err: unknown) {
+      toast.error((err as Error).message || "Failed to remove project");
+    } finally {
+      setSavingFeatured(false);
+    }
+  };
+
+  const handleMoveFeaturedSlot = async (currentIndex: number, direction: "up" | "down") => {
+    if (!token) return;
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= featuredProjects.length) return;
+
+    setSavingFeatured(true);
+    try {
+      const ids = featuredProjects.map((p) => p.id);
+      const temp = ids[currentIndex];
+      ids[currentIndex] = ids[targetIndex];
+      ids[targetIndex] = temp;
+
+      await updateFeaturedProjectsApi(ids, token);
+      toast.success(
+        targetIndex === 0
+          ? "Moved to top as the latest featured project!"
+          : "Featured project order updated!"
+      );
+      await loadData(token);
+    } catch (err: unknown) {
+      toast.error((err as Error).message || "Failed to reorder projects");
+    } finally {
+      setSavingFeatured(false);
+    }
+  };
+
+  const handleSetAsLatest = async (projectId: string) => {
+    if (!token) return;
+    setSavingFeatured(true);
+    try {
+      const currentIds = featuredProjects.map((p) => p.id).filter((id) => id !== projectId);
+      const nextIds = [projectId, ...currentIds].slice(0, 3);
+
+      await updateFeaturedProjectsApi(nextIds, token);
+      toast.success("Set as the latest featured project at the top of your homepage!");
+      await loadData(token);
+    } catch (err: unknown) {
+      toast.error((err as Error).message || "Failed to set as latest");
+    } finally {
+      setSavingFeatured(false);
+    }
+  };
+
+  const handleToggleProjectFeatured = async (project: Project) => {
+    if (!token) return;
+    if (project.featured) {
+      await handleRemoveFromFeatured(project.id);
+    } else {
+      if (featuredProjects.length >= 3) {
+        toast.error(
+          "You can feature a maximum of 3 projects. Please unfeature one or swap it in the Featured Showcase above."
+        );
+        return;
+      }
+      await handleSetAsLatest(project.id);
     }
   };
 
@@ -732,10 +868,216 @@ export default function DashboardPage() {
           </TabsContent>
 
           {/* ──────────────── TAB 3: PROJECTS ──────────────── */}
-          <TabsContent value="projects" className="space-y-4">
-            <div className="flex justify-between items-center">
+          <TabsContent value="projects" className="space-y-6">
+            {/* ──────────────── HOMEPAGE FEATURED PROJECTS SHOWCASE (MAX 3) ──────────────── */}
+            <Card className="border-blue-200/70 dark:border-blue-900/40 bg-gradient-to-br from-blue-50/30 via-white to-blue-50/10 dark:from-blue-950/20 dark:via-neutral-900 dark:to-neutral-900/60 shadow-xs">
+              <CardHeader className="p-4 sm:p-5 pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-sm font-bold flex items-center gap-1.5 text-neutral-900 dark:text-neutral-100">
+                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                        Homepage Featured Projects Showcase
+                      </CardTitle>
+                      <Badge
+                        variant={featuredProjects.length === 3 ? "default" : "secondary"}
+                        className={`text-[11px] font-mono ${
+                          featuredProjects.length === 3
+                            ? "bg-emerald-600 hover:bg-emerald-600 text-white"
+                            : "text-neutral-600 dark:text-neutral-400"
+                        }`}
+                      >
+                        {featuredProjects.length} of 3 Selected
+                      </Badge>
+                    </div>
+                    <CardDescription className="text-xs">
+                      Select which three projects appear on your portfolio homepage. The <strong>top slot</strong> is always displayed first as the latest featured project.
+                    </CardDescription>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href="/#projects"
+                      target="_blank"
+                      className="inline-flex items-center gap-1 text-xs font-mono text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      <Eye className="w-3.5 h-3.5" /> Preview on Homepage ↗
+                    </Link>
+                  </div>
+                </div>
+              </CardHeader>
+
+              <CardContent className="p-4 sm:p-5 pt-0">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {[0, 1, 2].map((slotIdx) => {
+                    const proj = featuredProjects[slotIdx];
+                    const isLatest = slotIdx === 0;
+
+                    return (
+                      <div
+                        key={slotIdx}
+                        className={`relative rounded-xl border p-3.5 flex flex-col justify-between transition ${
+                          proj
+                            ? isLatest
+                              ? "border-emerald-500/50 bg-emerald-50/20 dark:bg-emerald-950/15 ring-1 ring-emerald-500/20"
+                              : "border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/80"
+                            : "border-dashed border-neutral-300 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30"
+                        }`}
+                      >
+                        {/* Slot Position Tag */}
+                        <div className="flex items-center justify-between pb-2 border-b border-neutral-100 dark:border-neutral-800/80 mb-2">
+                          <span className="text-[11px] font-mono font-bold flex items-center gap-1.5">
+                            {isLatest ? (
+                              <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                Slot 1: Top (Latest)
+                              </span>
+                            ) : (
+                              <span className="text-neutral-600 dark:text-neutral-400">
+                                Slot {slotIdx + 1}: Position #{slotIdx + 1}
+                              </span>
+                            )}
+                          </span>
+
+                          {proj && (
+                            <div className="flex items-center gap-1">
+                              {slotIdx > 0 && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  title="Move up (make earlier / latest)"
+                                  onClick={() => handleMoveFeaturedSlot(slotIdx, "up")}
+                                  disabled={savingFeatured}
+                                  className="h-6 w-6 p-0 text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+                                >
+                                  <ArrowUp className="w-3 h-3" />
+                                </Button>
+                              )}
+                              {slotIdx < featuredProjects.length - 1 && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  title="Move down"
+                                  onClick={() => handleMoveFeaturedSlot(slotIdx, "down")}
+                                  disabled={savingFeatured}
+                                  className="h-6 w-6 p-0 text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+                                >
+                                  <ArrowDown className="w-3 h-3" />
+                                </Button>
+                              )}
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                title="Remove from featured"
+                                onClick={() => handleRemoveFromFeatured(proj.id)}
+                                disabled={savingFeatured}
+                                className="h-6 w-6 p-0 text-neutral-400 hover:text-red-600 dark:hover:text-red-400"
+                              >
+                                <X className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Project Content or Empty State */}
+                        {proj ? (
+                          <div className="space-y-2">
+                            <div className="flex items-start gap-2.5">
+                              {proj.imageUrl ? (
+                                <img
+                                  src={proj.imageUrl}
+                                  alt={proj.title}
+                                  className="w-12 h-12 rounded-lg object-cover border border-neutral-200 dark:border-neutral-800 flex-shrink-0"
+                                />
+                              ) : (
+                                <div className="w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center flex-shrink-0">
+                                  <FolderGit2 className="w-5 h-5 text-neutral-400" />
+                                </div>
+                              )}
+                              <div className="min-w-0 flex-1">
+                                <h4 className="text-xs font-bold text-neutral-900 dark:text-neutral-100 truncate">
+                                  {proj.title}
+                                </h4>
+                                {proj.category && (
+                                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 truncate block">
+                                    {proj.category}
+                                  </span>
+                                )}
+                                <p className="text-[11px] text-neutral-500 line-clamp-1 mt-0.5">
+                                  {proj.summary}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="pt-2 flex items-center justify-between border-t border-neutral-100 dark:border-neutral-800/80">
+                              <span className="text-[10px] font-mono text-neutral-400">
+                                {isLatest ? "⭐ Top Position" : `Position #${slotIdx + 1}`}
+                              </span>
+                              <div className="flex items-center gap-1.5">
+                                {!isLatest && (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => handleSetAsLatest(proj.id)}
+                                    disabled={savingFeatured}
+                                    className="h-6 text-[10px] px-2 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40"
+                                  >
+                                    Make Latest
+                                  </Button>
+                                )}
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => {
+                                    setActiveSlotIndex(slotIdx);
+                                    setFeaturedSlotDialogOpen(true);
+                                  }}
+                                  disabled={savingFeatured}
+                                  className="h-6 text-[10px] px-2"
+                                >
+                                  Swap
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="py-4 text-center space-y-2 flex flex-col items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800/60 flex items-center justify-center text-neutral-400">
+                              <Plus className="w-4 h-4" />
+                            </div>
+                            <div className="space-y-0.5">
+                              <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                                Slot {slotIdx + 1} is Empty
+                              </p>
+                              <p className="text-[11px] text-neutral-400">
+                                {isLatest ? "Assign project to display at top" : "Assign a project to feature"}
+                              </p>
+                            </div>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                setActiveSlotIndex(slotIdx);
+                                setFeaturedSlotDialogOpen(true);
+                              }}
+                              disabled={savingFeatured}
+                              className="h-7 text-xs mt-1"
+                            >
+                              <Plus className="w-3 h-3 mr-1" /> Choose Project
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* ──────────────── ALL PROJECTS LIST ──────────────── */}
+            <div className="flex justify-between items-center pt-2">
               <div>
-                <h3 className="text-sm font-semibold">Featured Projects</h3>
+                <h3 className="text-sm font-semibold">All Projects ({portfolio?.projects.length || 0})</h3>
                 <p className="text-xs text-neutral-500">Manage case studies, stack details, challenges &amp; URLs</p>
               </div>
               <Button
@@ -753,7 +1095,7 @@ export default function DashboardPage() {
                     repoUrl: "",
                     challenges: "",
                     improvements: "",
-                    featured: true,
+                    featured: featuredProjects.length < 3,
                     order: (portfolio?.projects.length || 0),
                   });
                   setProjectDialogOpen(true);
@@ -765,67 +1107,121 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {portfolio?.projects.map((proj) => (
-                <Card key={proj.id} className="relative flex flex-col justify-between">
-                  <CardHeader className="p-4 pb-2 space-y-2">
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <CardTitle className="text-sm font-bold flex items-center gap-1.5">
-                          {proj.title}
-                          {proj.category && (
-                            <Badge variant="outline" className="text-[10px] font-mono">
-                              {proj.category}
-                            </Badge>
-                          )}
-                        </CardTitle>
-                        <CardDescription className="text-xs line-clamp-2 mt-1">
-                          {proj.summary}
-                        </CardDescription>
+              {portfolio?.projects.map((proj) => {
+                const featuredIdx = featuredProjects.findIndex((p) => p.id === proj.id);
+                const isFeatured = featuredIdx !== -1;
+                const isLatest = featuredIdx === 0;
+
+                return (
+                  <Card key={proj.id} className="relative flex flex-col justify-between">
+                    <CardHeader className="p-4 pb-2 space-y-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <CardTitle className="text-sm font-bold">
+                              {proj.title}
+                            </CardTitle>
+                            {proj.category && (
+                              <Badge variant="outline" className="text-[10px] font-mono">
+                                {proj.category}
+                              </Badge>
+                            )}
+                            {isFeatured ? (
+                              <Badge
+                                className={`text-[10px] font-mono ${
+                                  isLatest
+                                    ? "bg-emerald-600 hover:bg-emerald-600 text-white"
+                                    : "bg-amber-600 hover:bg-amber-600 text-white"
+                                }`}
+                              >
+                                {isLatest ? "⭐ Slot 1 (Latest)" : `⭐ Slot ${featuredIdx + 1}`}
+                              </Badge>
+                            ) : (
+                              <Badge variant="secondary" className="text-[10px] font-mono text-neutral-400">
+                                Archive Only
+                              </Badge>
+                            )}
+                          </div>
+                          <CardDescription className="text-xs line-clamp-2 mt-1">
+                            {proj.summary}
+                          </CardDescription>
+                        </div>
                       </div>
-                    </div>
-                    {proj.imageUrl && (
-                      <div className="rounded-md overflow-hidden h-32 border border-neutral-200 dark:border-neutral-800">
-                        <img src={proj.imageUrl} alt={proj.title} className="w-full h-full object-cover object-top" />
+                      {proj.imageUrl && (
+                        <div className="rounded-md overflow-hidden h-32 border border-neutral-200 dark:border-neutral-800">
+                          <img src={proj.imageUrl} alt={proj.title} className="w-full h-full object-cover object-top" />
+                        </div>
+                      )}
+                    </CardHeader>
+                    <CardContent className="p-4 pt-1 space-y-3">
+                      <div className="text-[11px] font-mono text-neutral-500 line-clamp-1">
+                        {proj.techStack?.join(", ")}
                       </div>
-                    )}
-                  </CardHeader>
-                  <CardContent className="p-4 pt-1 space-y-2">
-                    <div className="text-[11px] font-mono text-neutral-500 line-clamp-1">
-                      {proj.techStack?.join(", ")}
-                    </div>
-                    <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800">
-                      <Link
-                        href={`/projects/${proj.slug}`}
-                        target="_blank"
-                        className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-mono"
-                      >
-                        <Eye className="w-3 h-3" /> Preview
-                      </Link>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            setEditingProject(proj);
-                            setProjectDialogOpen(true);
-                          }}
-                          className="h-7 text-xs"
+
+                      {/* Quick Featured Toggle Switch Row */}
+                      <div className="flex items-center justify-between p-2 rounded-lg bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200/70 dark:border-neutral-800">
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            id={`feat-toggle-${proj.id}`}
+                            checked={proj.featured}
+                            onCheckedChange={() => handleToggleProjectFeatured(proj)}
+                            disabled={savingFeatured}
+                          />
+                          <Label
+                            htmlFor={`feat-toggle-${proj.id}`}
+                            className="text-xs cursor-pointer select-none font-medium text-neutral-700 dark:text-neutral-300"
+                          >
+                            {proj.featured ? "Featured on Homepage" : "Feature on Homepage"}
+                          </Label>
+                        </div>
+
+                        {isFeatured && !isLatest && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleSetAsLatest(proj.id)}
+                            disabled={savingFeatured}
+                            className="h-6 text-[10px] text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 px-2"
+                          >
+                            Make Latest (Top)
+                          </Button>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800">
+                        <Link
+                          href={`/projects/${proj.slug}`}
+                          target="_blank"
+                          className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-mono"
                         >
-                          <Edit2 className="w-3 h-3 mr-1" /> Edit
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => handleDeleteProject(proj.id)}
-                          className="h-7 text-xs"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
+                          <Eye className="w-3 h-3" /> Preview
+                        </Link>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setEditingProject(proj);
+                              setProjectDialogOpen(true);
+                            }}
+                            className="h-7 text-xs"
+                          >
+                            <Edit2 className="w-3 h-3 mr-1" /> Edit
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleDeleteProject(proj.id)}
+                            className="h-7 text-xs"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </TabsContent>
 
@@ -1327,6 +1723,22 @@ export default function DashboardPage() {
                   placeholder="Integrating automated hospital blood-bank inventory Webhooks..."
                 />
               </div>
+
+              {/* Featured on Homepage Switch */}
+              <div className="flex items-center justify-between p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50">
+                <div className="space-y-0.5">
+                  <Label className="text-xs font-semibold">Featured on Homepage</Label>
+                  <p className="text-[11px] text-neutral-500">
+                    Display this project in your homepage&apos;s 3 featured slots.
+                  </p>
+                </div>
+                <Switch
+                  checked={editingProject.featured ?? false}
+                  onCheckedChange={(checked) =>
+                    setEditingProject({ ...editingProject, featured: checked })
+                  }
+                />
+              </div>
             </div>
           )}
 
@@ -1338,6 +1750,90 @@ export default function DashboardPage() {
               Save Project
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* ──────────────── FEATURED SLOT SELECTOR DIALOG ──────────────── */}
+      <Dialog open={featuredSlotDialogOpen} onOpenChange={setFeaturedSlotDialogOpen}>
+        <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-sm font-bold flex items-center gap-1.5">
+              <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+              {activeSlotIndex === 0
+                ? "Select Slot #1: Top Position (Latest Featured)"
+                : `Select Project for Featured Slot #${(activeSlotIndex ?? 0) + 1}`}
+            </DialogTitle>
+            <DialogDescription className="text-xs">
+              {activeSlotIndex === 0
+                ? "This project will be displayed at the very top of your homepage Featured Projects section as the latest featured project."
+                : "Choose a project from your portfolio to display in this featured homepage slot."}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-2 pt-2">
+            {portfolio?.projects.map((proj) => {
+              const slotIdx = featuredProjects.findIndex((p) => p.id === proj.id);
+              const isCurrentSlot = activeSlotIndex !== null && slotIdx === activeSlotIndex;
+
+              return (
+                <div
+                  key={proj.id}
+                  className={`flex items-center justify-between p-3 rounded-xl border transition ${
+                    isCurrentSlot
+                      ? "border-emerald-500/50 bg-emerald-50/20 dark:bg-emerald-950/20"
+                      : slotIdx !== -1
+                      ? "border-amber-500/40 bg-amber-50/10 dark:bg-amber-950/10"
+                      : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700"
+                  }`}
+                >
+                  <div className="flex items-center gap-3 min-w-0 pr-2">
+                    {proj.imageUrl ? (
+                      <img
+                        src={proj.imageUrl}
+                        alt={proj.title}
+                        className="w-10 h-10 rounded-lg object-cover border border-neutral-200 dark:border-neutral-800 flex-shrink-0"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center flex-shrink-0">
+                        <FolderGit2 className="w-4 h-4 text-neutral-400" />
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-xs font-bold text-neutral-900 dark:text-neutral-100 truncate">
+                          {proj.title}
+                        </span>
+                        {slotIdx !== -1 && (
+                          <Badge
+                            variant="outline"
+                            className="text-[9px] font-mono text-amber-600 dark:text-amber-400 border-amber-300 dark:border-amber-800"
+                          >
+                            {slotIdx === 0 ? "Slot 1 (Top)" : `Slot ${slotIdx + 1}`}
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-[11px] text-neutral-500 truncate mt-0.5">
+                        {proj.category || proj.techStack?.slice(0, 3).join(", ") || proj.summary}
+                      </p>
+                    </div>
+                  </div>
+
+                  <Button
+                    size="sm"
+                    disabled={isCurrentSlot || savingFeatured}
+                    onClick={() => {
+                      if (activeSlotIndex !== null) {
+                        handleAssignFeaturedSlot(activeSlotIndex, proj.id);
+                      }
+                    }}
+                    className="text-xs h-8 px-3 flex-shrink-0"
+                  >
+                    {isCurrentSlot ? "Current" : slotIdx !== -1 ? "Move Here" : "Select"}
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
         </DialogContent>
       </Dialog>
 

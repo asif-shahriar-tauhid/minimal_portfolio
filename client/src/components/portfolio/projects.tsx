@@ -13,8 +13,24 @@ interface ProjectsSectionProps {
 }
 
 export function ProjectsSection({ projects, onOpenProjectModal }: ProjectsSectionProps) {
-  // Keep only the latest 3 projects in this section
-  const latestProjects = projects.slice(0, 3);
+  // Filter for featured projects and ensure the latest featured project is displayed at the top
+  const featuredProjects = React.useMemo(() => {
+    const featured = projects.filter((p) => p.featured);
+    const pool = featured.length > 0 ? featured : projects;
+
+    return [...pool]
+      .sort((a, b) => {
+        // If sequential slot order is specified (0 is top/latest)
+        if (typeof a.order === "number" && typeof b.order === "number" && a.order !== b.order) {
+          return a.order - b.order;
+        }
+        // Timestamp fallback: newest created/updated first
+        const timeA = new Date(a.createdAt || a.updatedAt || 0).getTime();
+        const timeB = new Date(b.createdAt || b.updatedAt || 0).getTime();
+        return timeB - timeA;
+      })
+      .slice(0, 3);
+  }, [projects]);
 
   return (
     <motion.section
@@ -35,12 +51,12 @@ export function ProjectsSection({ projects, onOpenProjectModal }: ProjectsSectio
           </p>
         </div>
         <span className="text-xs font-mono text-neutral-400">
-          Showing 3 of {projects.length}
+          Showing {featuredProjects.length} of {projects.length}
         </span>
       </div>
 
       <div className="space-y-8">
-        {latestProjects.map((project, idx) => (
+        {featuredProjects.map((project, idx) => (
           <motion.article
             key={project.id}
             initial={{ opacity: 0, y: 24 }}
@@ -60,6 +76,12 @@ export function ProjectsSection({ projects, onOpenProjectModal }: ProjectsSectio
                   <span>{project.title}</span>
                   <span className="text-xs text-neutral-400">↗</span>
                 </button>
+                {idx === 0 && (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-mono font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200/60 dark:border-emerald-900/50">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Latest
+                  </span>
+                )}
                 {project.category && (
                   <span className="text-[11px] font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded border border-blue-200/60 dark:border-blue-900/50">
                     {project.category}

@@ -291,6 +291,7 @@ if (env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 // src/routes.ts
 import { Router as Router2 } from "express";
+import { z as z3 } from "zod";
 
 // src/auth.ts
 import { createHash, timingSafeEqual } from "crypto";
@@ -452,6 +453,9 @@ var projectSchema = z2.object({
   featured: z2.boolean().default(true),
   order
 });
+var featuredProjectsSchema = z2.object({
+  projectIds: z2.array(z2.string().min(1)).max(3, "You can select at most 3 featured projects")
+});
 var messageSchema = z2.object({
   name: z2.string().trim().min(1, "Name is required").max(120),
   email: z2.email("Enter a valid email"),
@@ -521,6 +525,76 @@ api.get(
     const project = await prisma.project.findUnique({ where: { slug: req.params.slug } });
     if (!project) return res.status(404).json({ error: "Project not found" });
     res.json(project);
+  })
+);
+api.put(
+  "/projects/featured",
+  requireAdmin,
+  wrap(async (req, res) => {
+    const { projectIds } = featuredProjectsSchema.parse(req.body);
+    await prisma.$transaction(async (tx) => {
+      await tx.project.updateMany({
+        where: { id: { notIn: projectIds } },
+        data: { featured: false }
+      });
+      const now = Date.now();
+      for (let i = 0; i < projectIds.length; i++) {
+        await tx.project.update({
+          where: { id: projectIds[i] },
+          data: {
+            featured: true,
+            order: i,
+            updatedAt: new Date(now - i * 1e3)
+          }
+        });
+      }
+    });
+    const updatedProjects = await prisma.project.findMany({
+      orderBy: { order: "asc" }
+    });
+    res.json(updatedProjects);
+  })
+);
+api.patch(
+  "/projects/:id/featured",
+  requireAdmin,
+  wrap(async (req, res) => {
+    const id = req.params.id;
+    const { featured } = z3.object({ featured: z3.boolean() }).parse(req.body);
+    if (featured) {
+      const currentFeatured = await prisma.project.findMany({
+        where: { featured: true, id: { not: id } },
+        orderBy: { order: "asc" }
+      });
+      if (currentFeatured.length >= 3) {
+        return res.status(400).json({
+          error: "You can feature a maximum of 3 projects. Please unfeature a project first."
+        });
+      }
+      await prisma.$transaction(async (tx) => {
+        for (let i = 0; i < currentFeatured.length; i++) {
+          await tx.project.update({
+            where: { id: currentFeatured[i].id },
+            data: { order: i + 1 }
+          });
+        }
+        await tx.project.update({
+          where: { id },
+          data: {
+            featured: true,
+            order: 0,
+            updatedAt: /* @__PURE__ */ new Date()
+          }
+        });
+      });
+    } else {
+      await prisma.project.update({
+        where: { id },
+        data: { featured: false }
+      });
+    }
+    const updated = await prisma.project.findUnique({ where: { id } });
+    res.json(updated);
   })
 );
 api.use("/projects", crudRouter({ delegate: prisma.project, schema: projectSchema }));

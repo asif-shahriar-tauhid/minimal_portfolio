@@ -194,8 +194,8 @@ export const initialPortfolioData: Portfolio = {
         "Integrating 360-degree virtual property tours with Three.js, automated digital lease agreements with e-signatures, and instant landlord-tenant messaging webhooks.",
       featured: true,
       order: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: "2026-03-20T10:00:00.000Z",
+      updatedAt: "2026-03-20T10:00:00.000Z",
     },
     {
       id: "p-pulsecity",
@@ -227,8 +227,8 @@ export const initialPortfolioData: Portfolio = {
         "Live seat reservation layout mapping, QR-code ticket scanning for event organizers, and native Google Calendar / iCal integration.",
       featured: true,
       order: 1,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: "2026-02-15T09:00:00.000Z",
+      updatedAt: "2026-02-15T09:00:00.000Z",
     },
     {
       id: "p-lifeos",
@@ -259,8 +259,8 @@ export const initialPortfolioData: Portfolio = {
         "End-to-end encrypted multi-device cloud synchronization, AI-powered habit analysis and daily journaling summaries, and offline PWA desktop installation.",
       featured: true,
       order: 2,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: "2026-01-10T08:00:00.000Z",
+      updatedAt: "2026-01-10T08:00:00.000Z",
     },
   ],
 };

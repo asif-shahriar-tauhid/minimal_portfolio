@@ -1,10 +1,12 @@
 import { Router } from "express";
+import { z } from "zod";
 import { requireAdmin, signToken, verifyCredentials } from "./auth";
 import { crudRouter, wrap } from "./crud";
 import { prisma } from "./db";
 import {
   educationSchema,
   experienceSchema,
+  featuredProjectsSchema,
   loginSchema,
   messageSchema,
   messageUpdateSchema,
@@ -88,6 +90,89 @@ api.get(
     const project = await prisma.project.findUnique({ where: { slug: req.params.slug as string } });
     if (!project) return res.status(404).json({ error: "Project not found" });
     res.json(project);
+  }),
+);
+
+api.put(
+  "/projects/featured",
+  requireAdmin,
+  wrap(async (req, res) => {
+    const { projectIds } = featuredProjectsSchema.parse(req.body);
+
+    await prisma.$transaction(async (tx) => {
+      // Unfeature any project not in the list
+      await tx.project.updateMany({
+        where: { id: { notIn: projectIds } },
+        data: { featured: false },
+      });
+
+      // Feature the selected projects with sequential order (0 = top/latest)
+      // and stagger updatedAt so index 0 is latest
+      const now = Date.now();
+      for (let i = 0; i < projectIds.length; i++) {
+        await tx.project.update({
+          where: { id: projectIds[i] },
+          data: {
+            featured: true,
+            order: i,
+            updatedAt: new Date(now - i * 1000),
+          },
+        });
+      }
+    });
+
+    const updatedProjects = await prisma.project.findMany({
+      orderBy: { order: "asc" },
+    });
+    res.json(updatedProjects);
+  }),
+);
+
+api.patch(
+  "/projects/:id/featured",
+  requireAdmin,
+  wrap(async (req, res) => {
+    const id = req.params.id as string;
+    const { featured } = z.object({ featured: z.boolean() }).parse(req.body);
+
+    if (featured) {
+      const currentFeatured = await prisma.project.findMany({
+        where: { featured: true, id: { not: id } },
+        orderBy: { order: "asc" },
+      });
+
+      if (currentFeatured.length >= 3) {
+        return res.status(400).json({
+          error: "You can feature a maximum of 3 projects. Please unfeature a project first.",
+        });
+      }
+
+      // Feature this project and place it at the top as the latest (order: 0)
+      await prisma.$transaction(async (tx) => {
+        for (let i = 0; i < currentFeatured.length; i++) {
+          await tx.project.update({
+            where: { id: currentFeatured[i].id },
+            data: { order: i + 1 },
+          });
+        }
+        await tx.project.update({
+          where: { id },
+          data: {
+            featured: true,
+            order: 0,
+            updatedAt: new Date(),
+          },
+        });
+      });
+    } else {
+      await prisma.project.update({
+        where: { id },
+        data: { featured: false },
+      });
+    }
+
+    const updated = await prisma.project.findUnique({ where: { id } });
+    res.json(updated);
   }),
 );
 

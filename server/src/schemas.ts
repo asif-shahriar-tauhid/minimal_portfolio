@@ -106,6 +106,10 @@ export const projectSchema = z.object({
   order,
 });
 
+export const featuredProjectsSchema = z.object({
+  projectIds: z.array(z.string().min(1)).max(3, "You can select at most 3 featured projects"),
+});
+
 export const messageSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(120),
   email: z.email("Enter a valid email"),

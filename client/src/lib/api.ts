@@ -149,3 +149,24 @@ export async function apiRequest<T>(
   }
   return res.json();
 }
+
+/**
+ * Updates the 3 featured projects in explicit order: [slot0 (top/latest), slot1, slot2].
+ */
+export async function updateFeaturedProjectsApi(
+  projectIds: string[],
+  token: string
+): Promise<Project[]> {
+  return apiRequest<Project[]>("/projects/featured", "PUT", token, { projectIds });
+}
+
+/**
+ * Toggles a project's featured flag. If toggling on, places it at top as latest.
+ */
+export async function toggleProjectFeaturedApi(
+  id: string,
+  featured: boolean,
+  token: string
+): Promise<Project> {
+  return apiRequest<Project>(`/projects/${id}/featured`, "PATCH", token, { featured });
+}
